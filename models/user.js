@@ -22,11 +22,18 @@ const User = new Schema ({
         type: String,
         required: true
     },
+    country:{
+        type:String,
+        required: true
+    },
     node_member:{
         type: String,
         required: true
     },
-    node_leader:{
+    node_leader: {
+		type: Boolean,
+	},
+    node_leader_list:{
         type: Array,
     },
     create_date: {
@@ -34,5 +41,9 @@ const User = new Schema ({
 		required: true,
 	},
 })
+
+User.statics.findByNode = function (node){
+    return this.find({node_member:node})
+}
 
 module.exports = mongoose.model("User", User)

@@ -1,4 +1,4 @@
-const { getAllUsers,getUserById } = require("../utils/user_utilities")
+const { getAllUsers,getUserById, addUser } = require("../utils/user_utilities")
 
 const getUsers = function(req,res){
     getAllUsers(req).exec((err,users) => {
@@ -22,4 +22,17 @@ const getUser = function(req,res){
     })
 }
 
-module.exports = {getUsers, getUser}
+const createUser = function(req,res){
+    addUser(req.body).save((err,user) => {
+        if(err){
+            res.status(500)
+            return res.json({
+                error: err.message
+            })
+        }
+        res.status(201)
+        res.send(user)
+    })
+}
+
+module.exports = {getUsers, getUser, createUser}
