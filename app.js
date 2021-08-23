@@ -2,6 +2,7 @@ const express = require("express")
 const cors = require("cors")
 const mongoose = require("mongoose")
 const userRouter = require("./routes/users_route")
+const nodeRouter = require("./routes/nodes_route")
 
 const port = process.env.port || 3000
 
@@ -30,5 +31,6 @@ mongoose.connect(
 )
 
 app.use("/users", userRouter)
+app.use("/nodes", nodeRouter)
 
 app.listen(port, ()=> console.log(`server running on port ${port}`))
