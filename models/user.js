@@ -1,14 +1,9 @@
 const mongoose = require("mongoose")
 const Schema = mongoose.Schema
+const passportLocalMongoose =require('passport-local-mongoose')
+const uniqueValidator = require('mongoose-unique-validator');
 
 const User = new Schema ({
-    username: {
-		type: String,
-		unique: true,
-		lowercase: true,
-        trim: true,
-		required: true
-	},
     email: {
 		type: String,
 		required: true,
@@ -44,4 +39,10 @@ User.statics.findByCountry = function (country){
     return this.find({country:country})
 }
 
+User.plugin(uniqueValidator, {
+    type: 'mongoose-unique-validator',
+    message: 'Error, expected {PATH} to be unique.'
+});
+
+User.plugin(passportLocalMongoose)
 module.exports = mongoose.model("User", User)

@@ -5,6 +5,7 @@ const userRouter = require("./routes/users_route")
 const nodeRouter = require("./routes/nodes_route")
 const session = require("express-session")
 const MongoStore = require("connect-mongo")
+const passport = require('passport')
 
 const port = process.env.port || 3000
 
@@ -46,6 +47,10 @@ app.use(session({
         mongoUrl: dbConn
     })
 }))
+
+require('./config/passport')
+app.use(passport.initialize())
+app.use(passport.session())
 
 app.get("/", (req,res)=> {
     console.log("THIS is the session",req.session)

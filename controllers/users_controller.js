@@ -1,4 +1,6 @@
-const { getAllUsers,getUserById, addUser, deleteUser, updateUser } = require("../utils/user_utilities")
+const { getAllUsers,getUserById, deleteUser, updateUser } = require("../utils/user_utilities")
+const User = require("../models/user")
+const passport = require("passport")
 
 const getUsers = function(req,res){
     getAllUsers(req).exec((err,users) => {
@@ -23,16 +25,44 @@ const getUser = function(req,res){
 }
 
 const createUser = function(req,res){
-    addUser(req.body).save((err,user) => {
+        let date = Date.now()
+        console.log(Date.now())
+
+    User.register(new User({
+        username: req.body.username,
+        email: req.body.email,
+        is_admin: req.body.is_admin,
+        first_name: req.body.first_name,
+        last_name: req.body.last_name,
+        country: req.body.country,
+        create_date: date
+    }), req.body.password, function(err){
         if(err){
             res.status(500)
-            return res.json({
-                error: err.message
+            res.json({
+                error: err
             })
+        }else{
+            loginUser(req, res)
         }
-        res.status(201)
-        res.send(user)
     })
+}
+
+const loginUser = function(req, res) {
+    passport.authenticate('local')(req, res, function () {
+        console.log('authenticated', req.user.username)
+        console.log('session:', req.session)
+        console.log('user:', req.user)
+        res.json(req.user)
+    })
+}
+
+const logout = function(req,res){
+    req.logout()
+    console.log('user logged out')
+    console.log('session:', req.session)
+    console.log('user:', req.user)
+    res.sendStatus(200)
 }
 
 const removeUser = function(req,res){
@@ -60,4 +90,4 @@ const modifyUser = function(req,res){
     })
 }
 
-module.exports = {getUsers, getUser, createUser, removeUser, modifyUser}
+module.exports = {getUsers, getUser, createUser, removeUser, modifyUser, loginUser, logout}

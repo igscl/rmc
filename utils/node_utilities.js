@@ -24,12 +24,25 @@ const deleteNode = function(id){
 }
 
 const updateNode = function(req){
-    let date = Date.now();
     console.log(Date.now())
-	req.body.modified_date = date;
+	req.body.modified_date = Date.now();
     return Node.findByIdAndUpdate(req.params.id, req.body, {
         new: true
     })
 }
 
-module.exports = {getAllNodes, getNodeById, addNode, deleteNode, updateNode}
+const applyToNode = async(req) =>{
+
+    console.log(Date.now())
+	req.body.modified_date = Date.now();
+    let node = await Node.findById(req.params.id)
+    //don't join node if node leader or node member already
+    if(!node.members.includes(req.user.id) && node.leader !== req.user.id){
+        node.members.push(req.user.id)
+    }
+    return Node.findByIdAndUpdate(req.params.id, node, {
+        new: true
+    })
+}
+
+module.exports = {getAllNodes, getNodeById, addNode, deleteNode, updateNode, applyToNode}
