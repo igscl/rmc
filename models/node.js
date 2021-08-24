@@ -31,4 +31,13 @@ Node.statics.findByName = function (name){
     return this.find({name:name})
 }
 
+Node.statics.findByLeader = function (leader){
+    return this.find({leader:leader})
+}
+
+//this is looking within the array
+Node.statics.findByMember = function (members){
+    return this.find({members:members})
+}
+
 module.exports = mongoose.model("Node", Node)

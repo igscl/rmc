@@ -3,7 +3,12 @@ const Node = require("../models/node")
 const getAllNodes = function(req){
     if (req.query.name){
         return Node.findByName(req.query.name)
-    }else{
+    }else if (req.query.leader){
+        return Node.findByLeader(req.query.leader)
+    }else if (req.query.members){
+        return Node.findByMember(req.query.members)
+    }
+    else{
     return Node.find()
     }
 }
