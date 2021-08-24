@@ -6,6 +6,8 @@ const nodeRouter = require("./routes/nodes_route")
 const session = require("express-session")
 const MongoStore = require("connect-mongo")
 const passport = require('passport')
+const sgMail = require('@sendgrid/mail')
+
 
 const port = process.env.port || 3000
 
@@ -33,6 +35,9 @@ mongoose.connect(
      }
 )
 require('dotenv').config();
+sgMail.setApiKey(process.env.SENDGRID_API_KEY)
+console.log(process.env.SENDGRID_API_KEY)
+console.log(process.env.SECRET)
 
 app.use(session({
     secret: process.env.SECRET,

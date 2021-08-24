@@ -20,4 +20,13 @@ const userIsAdministrator = function (req, res, next) {
     }
 }
 
-module.exports = {handleError, userAuthenticated, userIsAdministrator}
+const userIsVerified = function (req, res, next) {
+    if (req.user.is_verified) {
+        next();
+    } else {
+        console.log("you need to verify your email")
+        res.sendStatus(403);
+    }
+}
+
+module.exports = {handleError, userAuthenticated, userIsAdministrator, userIsVerified}

@@ -1,6 +1,7 @@
 const { getAllUsers,getUserById, deleteUser, updateUser } = require("../utils/user_utilities")
 const User = require("../models/user")
 const passport = require("passport")
+const sgMail = require('@sendgrid/mail')
 
 const getUsers = function(req,res){
     getAllUsers(req).exec((err,users) => {
@@ -24,6 +25,7 @@ const getUser = function(req,res){
     })
 }
 
+
 const createUser = function(req,res){
         let date = Date.now()
         console.log(Date.now())
@@ -43,18 +45,39 @@ const createUser = function(req,res){
                 error: err
             })
         }else{
+            const msg = {
+                to: 'igngdev@gmail.com', // Change to your recipient
+                from: 'igngdev@gmail.com', // Change to your verified sender
+                subject: 'Please verify your email',
+                text: 'and easy to do anywhere, even with Node.js',
+                html: '<strong>and easy to do anywhere, even with Node.js</strong>',
+              }
+              sgMail
+                .send(msg)
+                .then(() => {
+                  console.log('Email sent')
+                })
+                .catch((error) => {
+                  console.error(error)
+                })
             loginUser(req, res)
         }
     })
 }
 
-const loginUser = function(req, res) {
-    passport.authenticate('local')(req, res, function () {
-        console.log('authenticated', req.user.username)
-        console.log('session:', req.session)
-        console.log('user:', req.user)
-        res.json(req.user)
-    })
+const authenticate = passport.authenticate("local")
+// helper function
+
+const loginUser = (req, res) => {
+    // passport.authenticate returns a function that we will call 
+//with req, res, and a callback function to execute on success    
+
+authenticate(req, res, function () {
+    console.log('authenticated user: ', req.user);
+    console.log('session: ', req.session);
+    res.status(200);
+    res.json({user: req.user, sessionID: req.sessionID});
+})
 }
 
 const logout = function(req,res){

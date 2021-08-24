@@ -11,6 +11,10 @@ const User = new Schema ({
 		lowercase: true,
         trim: true
 	},
+    is_verified:{
+        type: Boolean,
+        default: false
+    },
     is_admin:{
         type: Boolean
     },

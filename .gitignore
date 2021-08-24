@@ -4,3 +4,4 @@ client.http
 .env
 *.env
 .env.local
+sendgrid.env
