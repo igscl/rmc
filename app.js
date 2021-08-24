@@ -3,6 +3,7 @@ const cors = require("cors")
 const mongoose = require("mongoose")
 const userRouter = require("./routes/users_route")
 const nodeRouter = require("./routes/nodes_route")
+const session = require("express-session")
 
 const port = process.env.port || 3000
 
@@ -29,6 +30,17 @@ mongoose.connect(
         }
      }
 )
+
+app.use(session({
+    secret: process.env.SECRET,
+    resave: "false",
+    saveUninitialized: false
+}))
+app.get("/", (req,res)=> {
+    console.log("THIS is the session",req.session)
+    console.log("This is the secret:",process.env.secret)
+    res.send(req.session)
+})
 
 app.use("/users", userRouter)
 app.use("/nodes", nodeRouter)
