@@ -20,4 +20,16 @@ const addUser = function(body){
     return new User(body)
 }
 
-module.exports = {getAllUsers, getUserById, addUser}
+const deleteUser = function(id){
+    return User.findByIdAndRemove(id)
+}
+
+const updateUser = function(req){
+    return User.findByIdAndUpdate(req.params.id, req.body, {
+        new: true
+    })
+}
+
+
+
+module.exports = {getAllUsers, getUserById, addUser, deleteUser, updateUser}

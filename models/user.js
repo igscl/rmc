@@ -5,26 +5,34 @@ const User = new Schema ({
     username: {
 		type: String,
 		unique: true,
-		uniqueCaseInsensitive: true,
-		required: true,
+		lowercase: true,
+        trim: true,
+		required: true
 	},
     email: {
 		type: String,
 		required: true,
 		unique: true,
-		uniqueCaseInsensitive: true,
+		lowercase: true,
+        trim: true
 	},
+    is_admin:{
+        type: Boolean
+    },
     first_name:{
         type: String,
-        required: true
+        required: true,
+        trim: true
     },
     last_name:{
         type: String,
-        required: true
+        required: true,
+        trim: true
     },
     country:{
         type:String,
-        required: true
+        required: true,
+        trim: true
     },
     create_date: {
 		type: Date,
