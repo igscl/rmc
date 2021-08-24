@@ -25,7 +25,7 @@ const getNode = function(req,res){
 }
 
 const createNode = function(req,res){
-    addNode(req.body).save((err,node) => {
+    addNode(req).save((err,node) => {
         if(err){
             res.status(500)
             return res.json({

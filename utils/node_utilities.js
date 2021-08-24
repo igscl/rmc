@@ -12,11 +12,11 @@ const getNodeById = function(id){
     return Node.findById(id)
 }
 
-const addNode = function(body){
-    let date = Date.now();
-    console.log(Date.now())
-	body.create_date = date;
-    return new Node(body)
+const addNode = function(req){
+	req.body.create_date = Date.now();
+    console.log(req.body)
+    req.body.leader = req.user.id
+    return new Node(req.body)
 }
 
 const deleteNode = function(id){
@@ -37,7 +37,7 @@ const applyToNode = async(req) =>{
 	req.body.modified_date = Date.now();
     let node = await Node.findById(req.params.id)
     //don't join node if node leader or node member already
-    if(!node.members.includes(req.user.id) && node.leader !== req.user.id){
+    if(!node.members.includes(req.user.id) /*&& node.leader !== req.user.id */){
         node.members.push(req.user.id)
     }
     return Node.findByIdAndUpdate(req.params.id, node, {
