@@ -13,6 +13,10 @@ const Node = new Schema ({
     leader:{
         type: String,
         required: true
+    },
+    create_date:{
+        type: Date,
+        required: true
     }
     }
 )

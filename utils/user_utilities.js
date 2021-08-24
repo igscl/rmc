@@ -1,8 +1,8 @@
 const User = require("../models/user")
 
 const getAllUsers = function(req){
-    if (req.query.node){
-        return User.findByNode(req.query.node)
+    if (req.query.country){
+        return User.findByCountry(req.query.country)
     }else{
         return User.find()
     }
