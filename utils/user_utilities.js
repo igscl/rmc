@@ -23,6 +23,14 @@ const updateUser = function(req){
     })
 }
 
+const validateEmail = async (req) =>{
+    if(req.query.token){
+    let user = await User.findByEmailToken(req.query.token)
+    return User.findByIdAndUpdate(user, {
+        new: true
+    })}
+}
 
 
-module.exports = {getAllUsers, getUserById, deleteUser, updateUser}
+
+module.exports = {getAllUsers, getUserById, deleteUser, updateUser, validateEmail}

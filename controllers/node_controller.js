@@ -70,6 +70,7 @@ const joinNode = function(req,res){
 
     }else{
         applyToNode(req).then((node) =>{
+            node.save()
             res.status(200).send(node)
         }).catch((err) =>{
             res.status(500).json({error: err.message})

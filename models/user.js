@@ -33,6 +33,9 @@ const User = new Schema ({
         required: true,
         trim: true
     },
+    email_token:{
+        type:String
+    },
     create_date: {
 		type: Date,
 		required: true,
@@ -41,6 +44,10 @@ const User = new Schema ({
 
 User.statics.findByCountry = function (country){
     return this.find({country:country})
+}
+
+User.statics.findByEmailToken = function (token){
+    return this.find({email_token:token})
 }
 
 User.plugin(uniqueValidator, {
