@@ -8,6 +8,8 @@ router.use(userAuthenticated)
 
 router.get("/", getNodes)
 
+router.get("/join", joinNode)
+
 router.get("/:id", getNode)
 
 router.post("/", createNode)
@@ -15,7 +17,5 @@ router.post("/", createNode)
 router.delete("/:id", removeNode)
 
 router.put("/:id", modifyNode)
-
-router.put("/:id/join", joinNode)
 
 module.exports = router

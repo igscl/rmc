@@ -6,7 +6,6 @@ const getAllUsers = function(req){
     }else{
         return User.find()
     }
-    
 }
 
 const getUserById = function(id){

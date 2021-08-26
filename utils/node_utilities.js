@@ -18,6 +18,8 @@ const getNodeById = function(id){
 }
 
 const addNode = function(req){
+    // rypto.randomBytes(64).toString('base64').replace(/[^A-Za-z0-9]/g, "").substring(0,12);
+    req.body.invitation_token = crypto.randomBytes(6).toString('hex')
 	req.body.create_date = Date.now();
     console.log(req.body)
     req.body.leader = req.user.id
@@ -40,12 +42,17 @@ const applyToNode = async(req) =>{
 
     console.log(Date.now())
 	req.body.modified_date = Date.now();
-    let node = await Node.findById(req.params.id)
+    let node = await Node.findByInvitationToken(req.query.invitation)
+    console.log(req.query.invitation)
+    console.log(node)
+    console.log(req.user)
     //don't join node if node leader or node member already
-    if(!node.members.includes(req.user.id) /*&& node.leader !== req.user.id */){
-        node.members.push(req.user.id)
+    if(!node[0].members.includes(req.user.id)){
+        node[0].members.push(req.user.id)
+    }else{
+        console.log("You already joined this node")
     }
-    return Node.findByIdAndUpdate(req.params.id, node, {
+    return Node.findByIdAndUpdate(node[0].id, node[0], {
         new: true
     })
 }

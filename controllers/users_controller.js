@@ -49,7 +49,7 @@ const createUser = function(req,res){
             const msg = {
                 to: 'igngdev@gmail.com', // Change to your recipient
                 from: 'no-reply@redmundialcorazones.org', // Change to your verified sender
-                subject: 'Verifica tu correo para Red Mundial de Corazones',
+                subject: 'Verifica tu correo para la Red Mundial de Corazones',
                 text: `Para activar tu cuenta, ingresa aquí: http://localhost:3000/users/validate?token=${token}`,
                 html: `Para activar tu cuenta, <a href="http://localhost:3000/users/validate?token=${token}">ingresa a este link</a>.`,
               }

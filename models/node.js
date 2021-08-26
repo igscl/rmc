@@ -9,6 +9,10 @@ const Node = new Schema ({
 		uniqueCaseInsensitive: true,
         trim: true
     },
+    invitation_token:{
+        type: String,
+        required: true
+    },
     members:{
         type: Array,
         required: true
@@ -39,5 +43,10 @@ Node.statics.findByLeader = function (leader){
 Node.statics.findByMember = function (members){
     return this.find({members:members})
 }
+
+Node.statics.findByInvitationToken = function (invitation){
+    return this.find({invitation_token:invitation})
+}
+
 
 module.exports = mongoose.model("Node", Node)
