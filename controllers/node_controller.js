@@ -1,5 +1,5 @@
 const node = require("../models/node")
-const {getAllNodes, getNodeById, addNode, deleteNode, updateNode, applyToNode} = require("../utils/node_utilities")
+const {getAllNodes, getNodeById, addNode, deleteNode, updateNode, applyToNode, leaveNode} = require("../utils/node_utilities")
 const User = require("../models/user")
 
 const getNodes = function (req,res){
@@ -78,4 +78,20 @@ const joinNode = function(req,res){
     }
 }
 
-module.exports = {getNodes, getNode, createNode, removeNode, modifyNode, joinNode}
+const exitNode = function(req,res){
+    if (req.error){
+        console.log(req.error.message)
+        res.status(req.error.status)
+        res.send(req.error.message)
+
+    }else{
+        leaveNode(req).then((node) =>{
+            node.save()
+            res.status(200).send(node)
+        }).catch((err) =>{
+            res.status(500).json({error: err.message})
+        })
+    }
+}
+
+module.exports = {getNodes, getNode, createNode, removeNode, modifyNode, joinNode, exitNode}

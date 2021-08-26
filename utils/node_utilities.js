@@ -57,4 +57,20 @@ const applyToNode = async(req) =>{
     })
 }
 
-module.exports = {getAllNodes, getNodeById, addNode, deleteNode, updateNode, applyToNode}
+const leaveNode = async(req) => {
+    let node = await Node.findById(req.params.id)
+    console.log(node.members)
+    const index = node.members.indexOf(req.user.id);
+    console.log(index)
+    if (index > -1) {
+        node.members.splice(index, 1);
+        console.log(node)
+        return Node.findByIdAndUpdate(node.id, node, {
+            new: true
+        })
+    }else{
+        return node
+    }
+}   
+
+module.exports = {getAllNodes, getNodeById, addNode, deleteNode, updateNode, applyToNode, leaveNode}
