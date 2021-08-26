@@ -16,7 +16,14 @@ const User = new Schema ({
         default: false
     },
     is_admin:{
-        type: Boolean
+        type: Boolean,
+        default: false,
+        required: true
+    },
+    is_super_admin:{
+        type: Boolean,
+        default: false,
+        required: true
     },
     first_name:{
         type: String,
