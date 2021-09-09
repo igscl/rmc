@@ -3,6 +3,7 @@ const cors = require("cors")
 const mongoose = require("mongoose")
 const userRouter = require("./routes/users_route")
 const nodeRouter = require("./routes/nodes_route")
+const actionRouter = require("./routes/actions_route")
 const session = require("express-session")
 const MongoStore = require("connect-mongo")
 const passport = require('passport')
@@ -65,5 +66,6 @@ app.get("/", (req,res)=> {
 
 app.use("/users", userRouter)
 app.use("/nodes", nodeRouter)
+app.use("/actions", actionRouter)
 
 app.listen(port, ()=> console.log(`server running on port ${port}`))
