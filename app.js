@@ -9,9 +9,6 @@ const MongoStore = require("connect-mongo")
 const passport = require('passport')
 const sgMail = require('@sendgrid/mail')
 
-
-const port = process.env.port || 3000
-
 const app = express()
 
 app.use(cors())
@@ -35,10 +32,13 @@ mongoose.connect(
         }
      }
 )
+
 require('dotenv').config();
 sgMail.setApiKey(process.env.SENDGRID_API_KEY)
 console.log(process.env.SENDGRID_API_KEY)
 console.log(process.env.SECRET)
+
+const port = process.env.APP_PORT || 3000
 
 app.use(session({
     secret: process.env.SECRET,
@@ -68,4 +68,6 @@ app.use("/users", userRouter)
 app.use("/nodes", nodeRouter)
 app.use("/actions", actionRouter)
 
-app.listen(port, ()=> console.log(`server running on port ${port}`))
+app.listen(port, ()=> 
+console.log(`server running on port ${port}`
+))

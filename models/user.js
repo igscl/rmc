@@ -27,17 +27,17 @@ const User = new Schema ({
     },
     first_name:{
         type: String,
-        required: true,
+        // required: true,
         trim: true
     },
     last_name:{
         type: String,
-        required: true,
+        // required: true,
         trim: true
     },
     country:{
         type:String,
-        required: true,
+        // required: true,
         trim: true
     },
     email_token:{
