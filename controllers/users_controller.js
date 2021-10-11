@@ -77,7 +77,8 @@ authenticate(req, res, function () {
     console.log('authenticated user: ', req.user);
     console.log('session: ', req.session);
     res.status(200);
-    res.json({user: req.user, sessionID: req.sessionID});
+    // res.json({user: req.user, sessionID: req.sessionID});
+    res.json(req.user)
 })
 }
 

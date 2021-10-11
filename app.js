@@ -11,7 +11,10 @@ const sgMail = require('@sendgrid/mail')
 
 const app = express()
 
-app.use(cors())
+app.use(cors({
+    origin: "http://localhost:3000",
+    credentials: true
+}))
 app.use(express.json())
 
 const dbConn = "mongodb://localhost/rmc"
