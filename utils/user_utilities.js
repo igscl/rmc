@@ -22,6 +22,12 @@ const updateUser = function(req){
     })
 }
 
+const changeUserPassword = function(req){
+    // let user = User.findOne(id)
+    // console.log("THIS IS THE USER:",user)
+    return User.findOne({ _id: req.params.id})
+}
+
 const validateEmail = async (req) =>{
     if(req.query.token){
     let user = await User.findByEmailToken(req.query.token)
@@ -32,4 +38,4 @@ const validateEmail = async (req) =>{
 
 
 
-module.exports = {getAllUsers, getUserById, deleteUser, updateUser, validateEmail}
+module.exports = {getAllUsers, getUserById, deleteUser, updateUser, validateEmail, changeUserPassword}
