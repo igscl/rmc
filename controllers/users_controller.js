@@ -131,6 +131,23 @@ const generatePwToken = function (req,res){
     findEmail(req).then((user) =>{
         user.pass_reset_token = token
         user.save()
+        //send email message with code
+        const msg = {
+            to: 'igngdev@gmail.com', // Change to your recipient
+            from: 'no-reply@redmundialcorazones.org', // Change to your verified sender
+            subject: 'Cambia tu clave para la Red Mundial de Corazones',
+            text: `Para resetear la clave, ingresa a este link: http://localhost:3009/users/password?token=${token}`,
+            html: `Para resetear la clave, <a href="http://localhost:3009/users/password?token=${token}">ingresa a este link</a>`,
+            }
+            sgMail
+            .send(msg)
+            .then(() => {
+                console.log('Password reset email sent')
+            })
+            .catch((error) => {
+                console.error(error)
+            })
+        //            
         res.status(200).send(user)
     }).catch((err) =>{
         res.status(500).json({error: err.message})
