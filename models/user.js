@@ -4,6 +4,13 @@ const passportLocalMongoose =require('passport-local-mongoose')
 const uniqueValidator = require('mongoose-unique-validator');
 
 const User = new Schema ({
+    username: {
+        type: String,
+		required: true,
+		unique: true,
+		lowercase: true,
+        trim: true
+    },
     email: {
 		type: String,
 		required: true,

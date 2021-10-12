@@ -29,7 +29,8 @@ const getUser = function(req,res){
 
 const createUser = function(req,res){
     let token = crypto.randomBytes(36).toString('hex');
-
+    // let strippedUsername = req.body.username.replace(/\W/g, '').toLowerCase()
+    // console.log(strippedUsername)
     User.register(new User({
         username: req.body.username,
         email: req.body.email,
