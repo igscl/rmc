@@ -43,6 +43,9 @@ const User = new Schema ({
     email_token:{
         type:String
     },
+    pass_reset_token:{
+        type:String
+    },
     create_date: {
 		type: Date,
 		required: true,

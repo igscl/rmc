@@ -1,4 +1,4 @@
-const { getAllUsers,getUserById, deleteUser, updateUser, validateEmail, changeUserPassword } = require("../utils/user_utilities")
+const { getAllUsers,getUserById, deleteUser, updateUser, validateEmail, findEmail, findPwResetToken } = require("../utils/user_utilities")
 const User = require("../models/user")
 const passport = require("passport")
 const sgMail = require('@sendgrid/mail')
@@ -116,10 +116,21 @@ const modifyUser = function(req,res){
 }
 
 const resetUserPassword = function(req,res){
-    changeUserPassword(req).then(async (user) =>{
+    findPwResetToken(req).then(async (user) =>{
         console.log("RESETTING PASSWORD FOR:",user)
         await user.setPassword(req.body.password)
         await user.save()
+        res.status(200).send(user)
+    }).catch((err) =>{
+        res.status(500).json({error: err.message})
+    })
+}
+
+const generatePwToken = function (req,res){
+    let token = crypto.randomBytes(36).toString('hex');
+    findEmail(req).then((user) =>{
+        user.pass_reset_token = token
+        user.save()
         res.status(200).send(user)
     }).catch((err) =>{
         res.status(500).json({error: err.message})
@@ -145,4 +156,14 @@ const validateUser = function(req,res){
 }
 
 
-module.exports = {getUsers, getUser, createUser, removeUser, modifyUser, loginUser, logout, validateUser, resetUserPassword}
+module.exports = {getUsers, 
+    getUser, 
+    createUser, 
+    removeUser, 
+    modifyUser, 
+    loginUser, 
+    logout, 
+    validateUser, 
+    resetUserPassword,
+    generatePwToken
+}

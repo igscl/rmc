@@ -22,10 +22,14 @@ const updateUser = function(req){
     })
 }
 
-const changeUserPassword = function(req){
-    // let user = User.findOne(id)
+const findEmail = function(req){
+    // let user = await User.findOne({ email: req.body.email})
     // console.log("THIS IS THE USER:",user)
-    return User.findOne({ _id: req.params.id})
+    return User.findOne({ email: req.body.email})
+}
+
+const findPwResetToken = function(req){
+    return User.findOne({ pass_reset_token: req.query.token})
 }
 
 const validateEmail = async (req) =>{
@@ -38,4 +42,4 @@ const validateEmail = async (req) =>{
 
 
 
-module.exports = {getAllUsers, getUserById, deleteUser, updateUser, validateEmail, changeUserPassword}
+module.exports = {getAllUsers, getUserById, deleteUser, updateUser, validateEmail, findEmail, findPwResetToken}

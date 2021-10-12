@@ -1,6 +1,15 @@
 const express = require("express")
 const router = express.Router()
-const {getUsers, getUser, createUser, removeUser, modifyUser, loginUser, logout, validateUser, resetUserPassword} = require("../controllers/users_controller")
+const {getUsers, 
+    getUser, 
+    createUser, 
+    removeUser, 
+    modifyUser, 
+    loginUser, 
+    logout, 
+    validateUser, 
+    resetUserPassword, 
+    generatePwToken} = require("../controllers/users_controller")
 const { userAuthenticated, userIsVerified, /*userIsAdministrator */} = require("../utils/common_utils")
 
 router.post("/register", createUser)
@@ -16,9 +25,11 @@ router.use(userAuthenticated)
 
 router.get("/", getUsers)
 
-router.get("/:id", getUser)
+router.put("/password", resetUserPassword )
 
-router.put("/:id/password", resetUserPassword )
+router.get("/pw-request", generatePwToken)
+
+router.get("/:id", getUser)
 
 // router.use(userIsAdministrator)
 
