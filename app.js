@@ -8,6 +8,8 @@ const session = require("express-session")
 const MongoStore = require("connect-mongo")
 const passport = require('passport')
 const sgMail = require('@sendgrid/mail')
+const multer = require('multer')
+const upload = multer({ dest: 'uploads/' })
 
 const app = express()
 
