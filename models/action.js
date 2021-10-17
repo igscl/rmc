@@ -15,12 +15,16 @@ const Action = new Schema({
         type: Date
     },
     actions:{
-        type: Array,
+        type: String,
         required: true
     },
     files:{
-        type: String
-    }
+        type: Array
+    },
+    created_by:{
+        type: String,
+        required:true
+    },
 
 })
 
