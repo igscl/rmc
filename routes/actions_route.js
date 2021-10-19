@@ -1,6 +1,6 @@
 const express = require("express")
 const router = express.Router()
-const {getActions, createAction, viewUploadedAction, uploadSingle, getAction} = require("../controllers/action_controller")
+const {getActions, createAction, viewUploadedAction, uploadSingle, getAction, removeAction} = require("../controllers/action_controller")
 const { userAuthenticated, userIsVerified } = require("../utils/common_utils")
 const multer  = require('multer')
 const upload = multer({ dest: 'uploads/' })
@@ -17,6 +17,8 @@ router.get("/", getActions)
 router.post("/", createAction)
 
 router.get("/upload/:key", viewUploadedAction)
+
+router.delete("/:id", removeAction)
 
 router.post("/upload", upload.single('image'), uploadSingle)
 

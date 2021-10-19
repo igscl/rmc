@@ -14,4 +14,8 @@ const addAction = function(req){
     return new Action(req.body)
 }
 
-module.exports = {getAllActions, addAction, loadAction}
+const deleteAction = function (req) {
+    return Action.findByIdAndRemove(req.params.id)
+}
+
+module.exports = {getAllActions, addAction, loadAction, deleteAction}
