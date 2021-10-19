@@ -1,4 +1,4 @@
-const {getAllActions, addAction} = require("../utils/action_utilities")
+const {getAllActions, addAction, loadAction} = require("../utils/action_utilities")
 const {uploadFile, getFileStream} = require('../config/s3')
 // const multer  = require('multer')
 // const upload = multer({ dest: 'uploads/' })
@@ -14,7 +14,21 @@ const getActions = function(req,res) {
                 error: err.message
             })
         }
+        // console.log(actions)
         res.send(actions)
+    })
+}
+
+const getAction = function (req, res) {
+    loadAction(req).exec((err, action) => {
+        if (err) {
+            res.status(500)
+            return res.json({
+                error: err.message
+            })
+        }
+        console.log("LOADING ACTION", action)
+        res.json(action)
     })
 }
 
@@ -37,7 +51,7 @@ const createAction = function(req,res){
 const viewUploadedAction = function (req, res) {
     const key = req.params.key
     const readStream = getFileStream(key)
-    console.log(readStream)
+    // console.log(readStream)
     readStream.pipe(res)
 }
 
@@ -50,4 +64,4 @@ const uploadSingle = async function (req, res) {
     // req.body will contain the text fields, if there were any
   }
 
-module.exports = {getActions, createAction, viewUploadedAction, uploadSingle}
+module.exports = {getActions, createAction, viewUploadedAction, uploadSingle, getAction}
