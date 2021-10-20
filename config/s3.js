@@ -25,6 +25,7 @@ function uploadFile(file) {
   }
 
   return s3.upload(uploadParams).promise()
+  .catch(err => { console.log('error', err) })
 }
 exports.uploadFile = uploadFile
 

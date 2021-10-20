@@ -64,17 +64,18 @@ const viewUploadedAction = function (req, res) {
     const key = req.params.key
     const readStream = getFileStream(key)
     .on('error', (e) => {
-        console.log(e)
+        console.log("This is the error!",e)
         res.status(500).json({ error: e.message })
       })
     // console.log(readStream)
     readStream.pipe(res)
-    // .on('data', (data) => {
-    //     // data
-    //   })
+    .on('data', (data) => {
+        // data
+      })
 }
 
 const uploadSingle = async function (req, res) {
+    try{
     console.log("REQ file",req.file)
     const result = await uploadFile(req.file)
     await unlinkFile(req.file.path)
@@ -82,6 +83,11 @@ const uploadSingle = async function (req, res) {
     res.send({file: `${result.Key}`})
     // req.files is array of `photos` files
     // req.body will contain the text fields, if there were any
+    }catch (e){
+        console.log(e)
+        res.status(500).json({ error: e.message })
+
+    }
   }
 
 module.exports = {getActions, createAction, viewUploadedAction, uploadSingle, getAction, removeAction}
