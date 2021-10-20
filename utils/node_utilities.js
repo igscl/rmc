@@ -38,23 +38,30 @@ const updateNode = function(req){
     })
 }
 
-const applyToNode = async(req) =>{
+const applyToNode = async (req) => {
+    try {
+        if(req.query.invitation!= null){
+            console.log(Date.now())
+            req.body.modified_date = Date.now();
+            let node = await Node.findByInvitationToken(req.query.invitation)
+            console.log("invitation", req.query.invitation)
+            console.log("node", node)
+            console.log("user", req.user)
+            //don't join node if node leader or node member already
+            if (!node[0].members.includes(req.user.id)) {
+                node[0].members.push(req.user.id)
+            } else {
+                console.log("You already joined this node")
+            }
+            return Node.findByIdAndUpdate(node[0].id, node[0], {
+                new: true
+            })
+        }
 
-    console.log(Date.now())
-	req.body.modified_date = Date.now();
-    let node = await Node.findByInvitationToken(req.query.invitation)
-    console.log(req.query.invitation)
-    console.log(node)
-    console.log(req.user)
-    //don't join node if node leader or node member already
-    if(!node[0].members.includes(req.user.id)){
-        node[0].members.push(req.user.id)
-    }else{
-        console.log("You already joined this node")
+    } catch (err) {
+        console.log("woops, cannot do that")
     }
-    return Node.findByIdAndUpdate(node[0].id, node[0], {
-        new: true
-    })
+
 }
 
 const leaveNode = async(req) => {
