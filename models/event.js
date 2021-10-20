@@ -7,9 +7,14 @@ const Event = new Schema ({
         required: true,
         trim: true
     },
+    date:{
+        type: Date,
+    },
     description:{
         type: String,
         required: true,
         trim: true
     }
 })
+
+module.exports = mongoose.model("Event", Event)
