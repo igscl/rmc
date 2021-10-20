@@ -4,9 +4,9 @@ const getAllNodes = function(req){
     if (req.query.name){
         return Node.findByName(req.query.name)
     }else if (req.query.leader){
-        return Node.findByLeader(req.query.leader)
+        return Node.findByLeader(req.user.id)
     }else if (req.query.members){
-        return Node.findByMember(req.query.members)
+        return Node.findByMember(req.user.id)
     }
     else{
     return Node.find()
