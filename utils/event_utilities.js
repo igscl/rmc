@@ -5,7 +5,7 @@ const getAllEvents = function(req){
 }
 
 const addEvent = function(req){
-	req.body.create_date = Date.now();
+	req.body.date = Date.now();
     req.body.created_by = req.user.id
     return new Event(req.body)
 }

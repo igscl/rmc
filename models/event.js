@@ -14,6 +14,9 @@ const Event = new Schema ({
         type: String,
         required: true,
         trim: true
+    },
+    created_by:{
+        type: String
     }
 })
 
