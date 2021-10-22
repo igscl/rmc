@@ -15,7 +15,8 @@ const Node = new Schema ({
     },
     members:{
         type: Array,
-        required: true
+        required: true,
+        ref: 'User'
     },
     leader:{
         type: String,
@@ -36,12 +37,16 @@ Node.statics.findByName = function (name){
 }
 
 Node.statics.findByLeader = function (leader){
-    return this.find({leader:leader})
+    return this
+    .find({leader:leader})
+    .populate('members', 'username')
 }
 
 //this is looking within the array
 Node.statics.findByMember = function (members){
-    return this.find({members:members})
+    return this
+    .find({members:members})
+    .populate('members', 'username')
 }
 
 Node.statics.findByInvitationToken = function (invitation){

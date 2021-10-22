@@ -3,7 +3,8 @@ const {getAllNodes, getNodeById, addNode, deleteNode, updateNode, applyToNode, l
 const User = require("../models/user")
 
 const getNodes = function (req,res){
-    getAllNodes(req).exec((err,nodes)=> {
+    getAllNodes(req)
+    .exec((err,nodes)=> {
         if (err){
             res.status(500)
             return res.json({
@@ -15,7 +16,8 @@ const getNodes = function (req,res){
 }
 
 const getNode = function(req,res){
-    getNodeById(req.params.id).exec((err,node) => {
+    getNodeById(req.params.id)
+    .exec((err,node) => {
         if(err){
             res.status(404)
             return res.send("Node not found")
@@ -50,7 +52,8 @@ const removeNode = function(req,res){
 }
 
 const modifyNode = function(req,res){
-    updateNode(req).exec((err,node) =>{
+    updateNode(req)
+    .exec((err,node) =>{
         if(err){
             res.status(500)
             return res.json({
