@@ -82,4 +82,8 @@ const leaveNode = async(req) => {
     }
 }   
 
-module.exports = {getAllNodes, getNodeById, addNode, deleteNode, updateNode, applyToNode, leaveNode}
+const getNodeCount = function(){
+    return Node.countDocuments()
+}
+
+module.exports = {getAllNodes, getNodeById, addNode, deleteNode, updateNode, applyToNode, leaveNode, getNodeCount }

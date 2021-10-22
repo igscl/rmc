@@ -1,5 +1,5 @@
 const node = require("../models/node")
-const {getAllNodes, getNodeById, addNode, deleteNode, updateNode, applyToNode, leaveNode} = require("../utils/node_utilities")
+const {getAllNodes, getNodeById, addNode, deleteNode, updateNode, applyToNode, leaveNode, getNodeCount} = require("../utils/node_utilities")
 const User = require("../models/user")
 
 const getNodes = function (req,res){
@@ -97,4 +97,15 @@ const exitNode = function(req,res){
     }
 }
 
-module.exports = {getNodes, getNode, createNode, removeNode, modifyNode, joinNode, exitNode}
+const returnNodeCount = function (req,res) {
+    getNodeCount(req).exec((err,count) => {
+        if(err){
+            res.status(404)
+            return res.sendStatus("An error ocurred")
+        }
+        res.status(200)
+        res.send([count])
+    })
+}
+
+module.exports = {getNodes, getNode, createNode, removeNode, modifyNode, joinNode, exitNode, returnNodeCount}
