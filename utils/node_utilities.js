@@ -48,8 +48,10 @@ const applyToNode = async (req) => {
             console.log("node", node)
             console.log("user", req.user)
             //don't join node if node leader or node member already
-            if (!node[0].members.includes(req.user.id)) {
+            if (!node[0].members.includes(req.user.id) && (node[0].leader !== req.user.id)) {
                 node[0].members.push(req.user.id)
+            } else if (node[0].leader === req.user.id) {
+                console.log("You are the node leader, you cannot join this node", node[0].leader, req.user.id )
             } else {
                 console.log("You already joined this node")
             }

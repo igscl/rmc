@@ -1,4 +1,4 @@
-const {getAllActions, addAction, loadAction, deleteAction} = require("../utils/action_utilities")
+const {getAllActions, addAction, loadAction, deleteAction, updateAction} = require("../utils/action_utilities")
 const {uploadFile, getFileStream} = require('../config/s3')
 // const multer  = require('multer')
 // const upload = multer({ dest: 'uploads/' })
@@ -60,6 +60,19 @@ const removeAction = function (req,res) {
     })
 }
 
+const modifyAction = function(req,res){
+    updateAction(req).exec((err,action) =>{
+        if(err){
+            res.status(500)
+            return res.json({
+                error:err.message
+            })
+        }
+        res.status(200)
+        res.send(action)
+    })
+}
+
 const viewUploadedAction = function (req, res) {
     const key = req.params.key
     const readStream = getFileStream(key)
@@ -90,4 +103,4 @@ const uploadSingle = async function (req, res) {
     }
   }
 
-module.exports = {getActions, createAction, viewUploadedAction, uploadSingle, getAction, removeAction}
+module.exports = {getActions, createAction, viewUploadedAction, uploadSingle, getAction, removeAction, modifyAction}
