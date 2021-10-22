@@ -22,6 +22,10 @@ const updateUser = function(req){
     })
 }
 
+const getCount = function(){
+    return User.countDocuments()
+}
+
 const findEmail = function(req){
     // let user = await User.findOne({ email: req.body.email})
     // console.log("THIS IS THE USER:",user)
@@ -42,4 +46,4 @@ const validateEmail = async (req) =>{
 
 
 
-module.exports = {getAllUsers, getUserById, deleteUser, updateUser, validateEmail, findEmail, findPwResetToken}
+module.exports = {getAllUsers, getUserById, deleteUser, updateUser, validateEmail, findEmail, findPwResetToken, getCount}

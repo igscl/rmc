@@ -1,4 +1,4 @@
-const { getAllUsers,getUserById, deleteUser, updateUser, validateEmail, findEmail, findPwResetToken } = require("../utils/user_utilities")
+const { getAllUsers,getUserById, deleteUser, updateUser, validateEmail, findEmail, findPwResetToken, getCount } = require("../utils/user_utilities")
 const User = require("../models/user")
 const passport = require("passport")
 const sgMail = require('@sendgrid/mail')
@@ -173,6 +173,17 @@ const validateUser = function(req,res){
     }
 }
 
+const getUserCount = function (req,res) {
+    getCount(req).exec((err,count) => {
+        if(err){
+            res.status(404)
+            return res.sendStatus("An error ocurred")
+        }
+        res.status(200)
+        res.send([count])
+    })
+}
+
 
 module.exports = {getUsers, 
     getUser, 
@@ -183,5 +194,6 @@ module.exports = {getUsers,
     logout, 
     validateUser, 
     resetUserPassword,
-    generatePwToken
+    generatePwToken,
+    getUserCount
 }

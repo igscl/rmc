@@ -9,7 +9,9 @@ const {getUsers,
     logout, 
     validateUser, 
     resetUserPassword, 
-    generatePwToken} = require("../controllers/users_controller")
+    generatePwToken,
+    getUserCount
+} = require("../controllers/users_controller")
 const { userAuthenticated, userIsVerified, /*userIsAdministrator */} = require("../utils/common_utils")
 
 router.post("/register", createUser)
@@ -28,6 +30,8 @@ router.get("/", getUsers)
 router.put("/password", resetUserPassword )
 
 router.get("/pw-request", generatePwToken)
+
+router.get("/count", getUserCount)
 
 router.get("/:id", getUser)
 

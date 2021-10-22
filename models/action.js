@@ -14,6 +14,9 @@ const Action = new Schema({
     modified_date:{
         type: Date
     },
+    category:{
+        type: String
+    },
     actions:{
         type: String,
         required: true
