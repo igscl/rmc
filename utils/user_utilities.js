@@ -17,7 +17,7 @@ const deleteUser = function(id){
 }
 
 const updateUser = function(req){
-    return User.findByIdAndUpdate(req.params.id, req.body, {
+    return User.findByIdAndUpdate(req.user.id, req.body, {
         new: true
     })
 }

@@ -57,6 +57,10 @@ const User = new Schema ({
 		type: Date,
 		required: true,
 	},
+    can_be_leader:{
+        type:Boolean,
+        default:true
+    },
 })
 
 User.statics.findByCountry = function (country){

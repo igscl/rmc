@@ -105,6 +105,12 @@ const removeUser = function(req,res){
 
 const modifyUser = function(req,res){
     updateUser(req).exec((err,user) =>{
+        // if (req.params.id !== req.user.id){
+        //     res.status(500)
+        //     return res.json({
+        //         error:"cannot update another user"
+        //     })
+        // }
         if(err){
             res.status(500)
             return res.json({

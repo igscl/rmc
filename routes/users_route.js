@@ -35,6 +35,8 @@ router.get("/count", getUserCount)
 
 router.get("/:id", getUser)
 
+router.put("/:id", modifyUser)
+
 // router.use(userIsAdministrator)
 
 router.delete("/:id", removeUser)
