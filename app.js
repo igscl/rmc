@@ -58,10 +58,12 @@ app.use(session({
     secret: process.env.SECRET,
     resave: false,
     saveUninitialized: false,
+    proxy: true,
     cookie:{
         expires: false,
-        // sameSite: 'none',
-        // secure: true,
+        sameSite: 'none',
+        secure: true,
+        httpOnly: false,
         // 3 months
         maxAge: 3 * 30 * 24 * 60 * 60 * 1000
     },
