@@ -25,6 +25,8 @@ const allowURLs = [
 
 ]
 
+app.set('trust proxy', 1);
+
 app.use(cors({
     origin: function (origin, callback) {
 		const allowURLsIndex = allowURLs.findIndex((url) => url.includes(origin));
