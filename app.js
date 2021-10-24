@@ -20,7 +20,10 @@ const allowURLs = [
 ]
 
 app.use(cors({
-    origin: "*",
+    origin: function (origin, callback) {
+		const allowURLsIndex = allowURLs.findIndex((url) => url.includes(origin));
+		callback(null, allowURLsIndex > -1);
+	},
     credentials: true
 }))
 app.use(express.json())
@@ -58,9 +61,9 @@ app.use(session({
     proxy: true,
     cookie:{
         expires: false,
-        // sameSite: 'none',
-        // secure: true,
-        // httpOnly: false,
+        sameSite: 'none',
+        secure: true,
+        httpOnly: false,
         // 3 months
         maxAge: 3 * 30 * 24 * 60 * 60 * 1000
     },
@@ -72,7 +75,6 @@ app.use(session({
 
 app.all('/*', function(req, res, next) {
     res.header("Access-Control-Allow-Origin", "http://localhost:3000")
-    // res.header("Access-Control-Allow-Methods: GET, POST, PUT, DELETE")
     res.header("Access-Control-Allow-Headers", "X-Requested-With")
     next()
   })
