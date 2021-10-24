@@ -57,8 +57,6 @@ mongoose.connect(
 
 require('dotenv').config();
 sgMail.setApiKey(process.env.SENDGRID_API_KEY)
-console.log(process.env.SENDGRID_API_KEY)
-console.log(process.env.SECRET)
 
 const port = process.env.PORT || 3009
 
