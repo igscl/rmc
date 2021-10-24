@@ -7,13 +7,19 @@ const Event = new Schema ({
         required: true,
         trim: true
     },
-    date:{
+    create_date:{
         type: Date,
+    },
+    event_date:{
+        type: String,
     },
     description:{
         type: String,
         required: true,
         trim: true
+    },
+    url:{
+        type: String
     },
     created_by:{
         type: String

@@ -14,6 +14,10 @@ const Action = new Schema({
     modified_date:{
         type: Date
     },
+    action_duration:{
+        type: String,
+        required: true
+    },
     category:{
         type: String
     },
