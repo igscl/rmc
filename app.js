@@ -52,7 +52,7 @@ sgMail.setApiKey(process.env.SENDGRID_API_KEY)
 console.log(process.env.SENDGRID_API_KEY)
 console.log(process.env.SECRET)
 
-const port = process.env.PORT || 3000
+const port = process.env.PORT || 3009
 
 app.use(session({
     secret: process.env.SECRET,
