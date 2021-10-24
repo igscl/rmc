@@ -20,10 +20,7 @@ const allowURLs = [
 ]
 
 app.use(cors({
-    origin: function (origin, callback) {
-		const allowURLsIndex = allowURLs.findIndex((url) => url.includes(origin));
-		callback(null, allowURLsIndex > -1);
-	},
+    origin: "*",
     credentials: true
 }))
 app.use(express.json())
@@ -73,11 +70,11 @@ app.use(session({
     })
 }))
 
-app.all('/*', function(req, res, next) {
-    res.header("Access-Control-Allow-Origin", "*")
-    res.header("Access-Control-Allow-Headers", "X-Requested-With")
-    next()
-  })
+// app.all('/*', function(req, res, next) {
+//     res.header("Access-Control-Allow-Origin", "*")
+//     res.header("Access-Control-Allow-Headers", "X-Requested-With")
+//     next()
+//   })
 
 require('./config/passport')
 app.use(passport.initialize())
