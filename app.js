@@ -16,7 +16,7 @@ const app = express()
 
 const allowURLs = [
 	'http://localhost:3000',
-	'https://nostalgic-visvesvaraya-7ad473.netlify.app',
+	'https://red-mundial-rmc.netlify.app',
 ]
 
 app.use(cors({
