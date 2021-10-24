@@ -28,7 +28,7 @@ app.use(cors({
 }))
 app.use(express.json())
 
-const dbConn = "mongodb://localhost/rmc"
+const dbConn = process.env.MONGODB_URI || "mongodb://localhost/rmc"
 
 mongoose.connect(
     dbConn,
