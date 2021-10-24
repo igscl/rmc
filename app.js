@@ -14,8 +14,16 @@ const upload = multer({ dest: 'uploads/' })
 
 const app = express()
 
+const allowURLs = [
+	'http://localhost:3000',
+	'https://nostalgic-visvesvaraya-7ad473.netlify.app',
+]
+
 app.use(cors({
-    origin: "http://localhost:3000",
+    origin: function (origin, callback) {
+		const allowURLsIndex = allowURLs.findIndex((url) => url.includes(origin));
+		callback(null, allowURLsIndex > -1);
+	},
     credentials: true
 }))
 app.use(express.json())
