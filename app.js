@@ -19,7 +19,9 @@ const allowURLs = [
 	'https://rmc-planeta.netlify.app',
     'https://redmundialcorazones.org',
     'https://www.redmundialcorazones.org',
-    'https://red-mundial-rmc.herokuapp.com'
+    'https://red-mundial-rmc.herokuapp.com',
+    'https://redmundialcorazones.org'
+    
 
 ]
 
